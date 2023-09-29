@@ -1,0 +1,28 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+
+ENTITY cap4ex1 IS
+PORT (
+a: IN STD_LOGIC_VECTOR(2 DOWNTO 0);-- seleção
+e: IN STD_LOGIC_VECTOR(2 DOWNTO 0); -- enable
+o: OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+);
+END ENTITY;
+
+ARCHITECTURE arch OF cap4ex1 IS
+SIGNAL entradas : STD_LOGIC_VECTOR(5 DOWNTO 0);
+BEGIN
+entradas <= e & a;
+WITH entradas SELECT
+-- o= 76543210   e/a= 321321
+o <= "11111110" WHEN "100000",
+     "11111101" WHEN "100100",
+     "11111011" WHEN "100010",
+     "11110111" WHEN "100110",
+     "11101111" WHEN "100001",
+     "11011111" WHEN "100101",
+     "10111111" WHEN "100011",
+     "01111111" WHEN "100111",
+     "00000000" WHEN OTHERS; -- disabled
+END arch;
+
